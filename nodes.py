@@ -25,8 +25,13 @@ class GlobalStore:
         if not key:
             logger.warning("GlobalStore: Attempted to set a variable with an empty key.")
             return
-            
-        _GLOBAL_CONTEXT[key] = value
+        
+        # Strip whitespace to prevent "video_vae " != "video_vae" errors
+        cleaned_key = key.strip()
+        if cleaned_key != key:
+             logger.info(f"GlobalStore: Warning - Key has leading/trailing whitespace. Auto-fixing '{key}' -> '{cleaned_key}'")
+        
+        _GLOBAL_CONTEXT[cleaned_key] = value
 
     @staticmethod
     def get(key: str) -> Any:
@@ -34,11 +39,18 @@ class GlobalStore:
         if not key:
             raise ValueError("GlobalStore: Key cannot be empty.")
             
-        if key not in _GLOBAL_CONTEXT:
-            # Raise a clear error instead of returning None to prevent downstream "NoneType" crashes.
-            raise ValueError(f"Wireless Error: Key '{key}' not found. Please ensure the 'Set Wireless' node executing BEFORE this 'Get Wireless' node.")
+        # Strip whitespace to match how it is stored
+        cleaned_key = key.strip()
             
-        return _GLOBAL_CONTEXT[key]
+        if cleaned_key not in _GLOBAL_CONTEXT:
+            # Raise a clear error instead of returning None to prevent downstream "NoneType" crashes.
+            # We list available keys to help the user debug typos.
+            available_keys = list(_GLOBAL_CONTEXT.keys())
+            raise ValueError(f"Wireless Error: Key '{cleaned_key}' not found. (Input was '{key}').\n"
+                             f"Available keys: {available_keys}\n"
+                             f"Please ensure the 'Set Wireless' node executes BEFORE this 'Get Wireless' node.")
+            
+        return _GLOBAL_CONTEXT[cleaned_key]
 
 
 class BaseSetNode:
