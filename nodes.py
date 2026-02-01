@@ -43,8 +43,6 @@ class GlobalStore:
         cleaned_key = key.strip()
             
         if cleaned_key not in _GLOBAL_CONTEXT:
-            # Raise a clear error instead of returning None to prevent downstream "NoneType" crashes.
-            # We list available keys to help the user debug typos.
             available_keys = list(_GLOBAL_CONTEXT.keys())
             raise ValueError(f"Wireless Error: Key '{cleaned_key}' not found. (Input was '{key}').\n"
                              f"Available keys: {available_keys}\n"
@@ -59,7 +57,9 @@ class BaseSetNode:
     CATEGORY = "Wireless"
     OUTPUT_NODE = True
 
-    def execute(self, key: str, value: Any) -> Tuple[Any]:
+    # Changed from 'execute' to '_set_value' to avoid signature mismatch in subclasses.
+    # Subclasses must implement 'execute' with the correct argument names matching INPUT_TYPES.
+    def _set_value(self, key: str, value: Any) -> Tuple[Any]:
         GlobalStore.set(key, value)
         return (value,)
 
@@ -89,6 +89,9 @@ class SetNodeAny(BaseSetNode):
     
     RETURN_TYPES = ("*",)
     RETURN_NAMES = ("value",)
+
+    def execute(self, key: str, value: Any) -> Tuple[Any]:
+        return self._set_value(key, value)
 
 
 class GetNodeAny(BaseGetNode):
@@ -122,7 +125,7 @@ class SetNodeImage(BaseSetNode):
     RETURN_NAMES = ("image",)
 
     def execute(self, key: str, image: Any) -> Tuple[Any]:
-        return super().execute(key, image)
+        return self._set_value(key, image)
 
 
 class GetNodeImage(BaseGetNode):
@@ -156,7 +159,7 @@ class SetNodeLatent(BaseSetNode):
     RETURN_NAMES = ("latent",)
 
     def execute(self, key: str, latent: Any) -> Tuple[Any]:
-        return super().execute(key, latent)
+        return self._set_value(key, latent)
 
 
 class GetNodeLatent(BaseGetNode):
