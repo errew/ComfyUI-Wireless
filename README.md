@@ -103,8 +103,8 @@ This project is licensed under the MIT License.
 2. 在工作流的任何其他位置放置一个 **Get Wireless** 节点。输入相同的 Key（`face_image`）。
 3. 数据即可无线传输！
 
-### 多通道示例 (你的问题)
-你可以通过不同的 Key 创建多个独立的通道，这就是你提到的“Set 1 对应 Get 1”：
+### 多通道示例
+你可以通过不同的 Key 创建多个独立的通道，最简单的“Set 1 对应 Get 1”：
 - **通道 1**: Set 节点 (Key: `1`) ➔ Get 节点 (Key: `1`)
 - **通道 2**: Set 节点 (Key: `2`) ➔ Get 节点 (Key: `2`)
 - **通道 A**: Set 节点 (Key: `model_base`) ➔ Get 节点 (Key: `model_base`)
