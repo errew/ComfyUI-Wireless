@@ -10,7 +10,10 @@ A clean, lightweight ComfyUI plugin to transmit data wirelessly between nodes us
 - **Pass-through**: Set nodes pass the value through, allowing linear workflow continuation.
 
 ## Nodes Included
-1. **Universal**: `Set Wireless (Any)` / `Get Wireless (Any)` - Works with Model, VAE, Clip, Conditioning, etc.
+1. **Universal**: `Set Wireless (Any)` / `Get Wireless (Any)` 
+   - Accepts **ALL** data types (Wildcard `*`).
+   - Supports complex types: `Model`, `VAE`, `CLIP`, `Conditioning`, `Mask`.
+   - Supports primitive types: `INT` (steps, width, height), `FLOAT` (fps), `STRING` (prompts).
 2. **Image**: `Set Wireless (Image)` / `Get Wireless (Image)` - Blue connections.
 3. **Latent**: `Set Wireless (Latent)` / `Get Wireless (Latent)` - Orange connections.
 
@@ -34,9 +37,22 @@ A clean, lightweight ComfyUI plugin to transmit data wirelessly between nodes us
 4. Restart ComfyUI.
 
 ## Usage
-1. Add a **Set Wireless** node. Connect your data and give it a unique Key (e.g., "main_face").
-2. Place a **Get Wireless** node anywhere else in the graph. Enter the same Key ("main_face").
-3. Connect the Get node to your next processing step.
+
+### Basic Linking
+1. Add a **Set Wireless** node. Connect your data and give it a unique Key (e.g., `face_image`).
+2. Place a **Get Wireless** node anywhere else. Enter the same Key (`face_image`).
+3. The data is now wirelessly transferred!
+
+### Multiple Channels (Example)
+You can create multiple independent channels by using different keys:
+- **Channel 1**: Set Node (Key: `1`) ➔ Get Node (Key: `1`)
+- **Channel 2**: Set Node (Key: `2`) ➔ Get Node (Key: `2`)
+- **Channel A**: Set Node (Key: `model_base`) ➔ Get Node (Key: `model_base`)
+
+Make sure the **Key** strings match exactly between the Set and Get nodes you want to pair.
+
+## License
+This project is licensed under the MIT License.
 
 ---
 
@@ -54,7 +70,10 @@ A clean, lightweight ComfyUI plugin to transmit data wirelessly between nodes us
 - **透传设计**: Set 节点支持数据透传，不打断原有的线性工作流。
 
 ## 包含的节点
-1. **通用型**: `Set Wireless (Any)` / `Get Wireless (Any)` - 适用于 Model, VAE, Clip, Conditioning 等所有类型。
+1. **通用型**: `Set Wireless (Any)` / `Get Wireless (Any)` 
+   - 接受 **所有** 数据类型 (通配符 `*`)。
+   - 支持复杂类型：`Model` (模型), `VAE`, `CLIP`, `Conditioning` (条件), `Mask` (遮罩)。
+   - 支持基础类型：`INT` (步数, 宽, 高), `FLOAT` (帧率), `STRING` (文本)。
 2. **图像型**: `Set Wireless (Image)` / `Get Wireless (Image)` - 对应蓝色端口。
 3. **潜空间型**: `Set Wireless (Latent)` / `Get Wireless (Latent)` - 对应橙色端口。
 
@@ -78,6 +97,19 @@ A clean, lightweight ComfyUI plugin to transmit data wirelessly between nodes us
 4. 重启 ComfyUI。
 
 ## 使用说明
-1. 添加一个 **Set Wireless** 节点。连接你的数据并给它起一个唯一的 Key（例如 "main_face"）。
-2. 在工作流的任何其他位置放置一个 **Get Wireless** 节点。输入相同的 Key ("main_face")。
-3. 将 Get 节点连接到你的下一个处理步骤。
+
+### 基础连接
+1. 添加一个 **Set Wireless** 节点。连接你的数据并给它起一个唯一的 Key（例如 `face_image`）。
+2. 在工作流的任何其他位置放置一个 **Get Wireless** 节点。输入相同的 Key（`face_image`）。
+3. 数据即可无线传输！
+
+### 多通道示例 (你的问题)
+你可以通过不同的 Key 创建多个独立的通道，这就是你提到的“Set 1 对应 Get 1”：
+- **通道 1**: Set 节点 (Key: `1`) ➔ Get 节点 (Key: `1`)
+- **通道 2**: Set 节点 (Key: `2`) ➔ Get 节点 (Key: `2`)
+- **通道 A**: Set 节点 (Key: `model_base`) ➔ Get 节点 (Key: `model_base`)
+
+**注意**：Set 和 Get 节点之间的 **Key** 必须完全一致才能成功配对。
+
+## 许可证
+本项目采用 MIT 许可证授权。
