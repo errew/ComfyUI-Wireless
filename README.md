@@ -71,7 +71,7 @@ This project is licensed under the MIT License.
 - **零延迟**: 使用 Python 内部字典存储，速度极快。
 - **严格类型**: 提供 `Any` (通用)、`Image` (图像) 和 `Latent` (潜空间) 的专用节点，完美适配 ComfyUI 的端口颜色系统。
 - **透传设计**: Set 节点支持数据透传，不打断原有的线性工作流。
-- **
+
 ## 包含的节点
 1. **通用型**: `Set Wireless (Any)` / `Get Wireless (Any)` 
    - 接受 **所有** 数据类型 (通配符 `*`)。
