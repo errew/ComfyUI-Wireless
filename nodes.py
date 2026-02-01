@@ -27,19 +27,16 @@ class GlobalStore:
             return
             
         _GLOBAL_CONTEXT[key] = value
-        # Debug log for development (optional, kept silent for performance usually)
-        # logger.debug(f"Set '{key}' -> {type(value)}")
 
     @staticmethod
-    def get(key: str) -> Optional[Any]:
+    def get(key: str) -> Any:
         """Retrieves a value from the global context."""
         if not key:
-            logger.warning("GlobalStore: Attempted to get a variable with an empty key.")
-            return None
+            raise ValueError("GlobalStore: Key cannot be empty.")
             
         if key not in _GLOBAL_CONTEXT:
-            logger.warning(f"GlobalStore: Key '{key}' not found in registry.")
-            return None
+            # Raise a clear error instead of returning None to prevent downstream "NoneType" crashes.
+            raise ValueError(f"Wireless Error: Key '{key}' not found. Please ensure the 'Set Wireless' node executing BEFORE this 'Get Wireless' node.")
             
         return _GLOBAL_CONTEXT[key]
 
