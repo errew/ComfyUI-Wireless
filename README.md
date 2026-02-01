@@ -8,7 +8,10 @@ A clean, lightweight ComfyUI plugin to transmit data wirelessly between nodes us
 - **Zero Latency**: Uses internal Python dictionary storage.
 - **Strict Typing**: Separate nodes for `Any`, `Image`, and `Latent` to ensure compatibility with ComfyUI's visual cues.
 - **Pass-through**: Set nodes pass the value through, allowing linear workflow continuation.
-
+  
+## Tips
+- We know it’s easy to accidentally copy a stray space when pasting your key. That’s why we’ve added an auto-trim feature—it automatically removes spaces at the beginning and end, making sure your key works perfectly every time.
+  
 ## Nodes Included
 1. **Universal**: `Set Wireless (Any)` / `Get Wireless (Any)` 
    - Accepts **ALL** data types (Wildcard `*`).
@@ -68,7 +71,7 @@ This project is licensed under the MIT License.
 - **零延迟**: 使用 Python 内部字典存储，速度极快。
 - **严格类型**: 提供 `Any` (通用)、`Image` (图像) 和 `Latent` (潜空间) 的专用节点，完美适配 ComfyUI 的端口颜色系统。
 - **透传设计**: Set 节点支持数据透传，不打断原有的线性工作流。
-
+- **
 ## 包含的节点
 1. **通用型**: `Set Wireless (Any)` / `Get Wireless (Any)` 
    - 接受 **所有** 数据类型 (通配符 `*`)。
@@ -76,6 +79,9 @@ This project is licensed under the MIT License.
    - 支持基础类型：`INT` (步数, 宽, 高), `FLOAT` (帧率), `STRING` (文本)。
 2. **图像型**: `Set Wireless (Image)` / `Get Wireless (Image)` - 对应蓝色端口。
 3. **潜空间型**: `Set Wireless (Latent)` / `Get Wireless (Latent)` - 对应橙色端口。
+
+## 提示
+为了彻底防止因手误（多打空格）导致的问题，我设置了代码自动帮你去除 Key 前后的空格（Trim），这样无论你是否不小心加了空格，只要字符匹配就能成功传输。
 
 ## 安装方法
 
